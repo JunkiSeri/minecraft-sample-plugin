@@ -45,7 +45,7 @@ public final class Main extends JavaPlugin implements Listener {
             .with(Type.STAR)
             .withFlicker()
             .build());
-    fireworkMeta.setPower(0);
+    fireworkMeta.setPower(1 * 4);
 
     // 追加した情報で再設定する。
     firework.setFireworkMeta(fireworkMeta);
