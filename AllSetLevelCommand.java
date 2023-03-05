@@ -5,18 +5,18 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class SetLevelCommand implements CommandExecutor {
+public class AllSetLevelCommand implements CommandExecutor {
 
   @Override
   public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
     if(sender instanceof Player player) {
-      if(args.length == 1) {
-      player.setLevel(Integer.parseInt(args[0]));
-      } else {
-        player.sendMessage("Noooooooooo!!!!!!");
+      player.sendMessage("実行できません。");
+    } else {
+      for(Player player : sender.getServer().getOnlinePlayers()) {
+        player.setLevel(Integer.parseInt(args[0]));
+        System.out.println("プライヤーのレベルが" + args[0] + "に設定されました。" );
       }
     }
-
     return false;
   }
 }
