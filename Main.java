@@ -1,5 +1,6 @@
 package plugin.sample;
 
+import java.math.BigInteger;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.FireworkEffect;
@@ -33,7 +34,9 @@ public final class Main extends JavaPlugin implements Listener {
     Player player = e.getPlayer();
     World world = player.getWorld();
 
-    if(count % 2 == 0) {
+    BigInteger val = BigInteger.valueOf(this.count);
+
+    if(val.isProbablePrime(1)) {
       // 花火オブジェクトをプレイヤーのロケーション地点に対して出現させる。
       Firework firework = world.spawn(player.getLocation(), Firework.class);
 
