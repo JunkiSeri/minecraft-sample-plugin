@@ -13,6 +13,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerBedEnterEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerToggleSneakEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.FireworkMeta;
@@ -73,5 +74,11 @@ public final class Main extends JavaPlugin implements Listener {
         .forEach(item -> item.setAmount(64));
 
     player.getInventory().setArmorContents(itemStacks);
+  }
+
+  @EventHandler
+  public void playerJoinMessage(PlayerJoinEvent e) {
+    Player player = e.getPlayer();
+    player.sendMessage("Minecraftの世界へようこそ");
   }
 }
