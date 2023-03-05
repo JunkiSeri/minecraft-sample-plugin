@@ -1,6 +1,8 @@
 package plugin.sample;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.FireworkEffect;
@@ -10,7 +12,9 @@ import org.bukkit.entity.Firework;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerBedEnterEvent;
 import org.bukkit.event.player.PlayerToggleSneakEvent;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.FireworkMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -58,5 +62,16 @@ public final class Main extends JavaPlugin implements Listener {
       }
     }
     count++;
+  }
+
+  @EventHandler
+  public void onPlayerBedEnter(PlayerBedEnterEvent e) {
+    Player player = e.getPlayer();
+    ItemStack[] itemStacks = player.getInventory().getContents();
+    Arrays.stream(itemStacks)
+        .filter(item -> !Objects.isNull(item) && item.getMaxStackSize() == 64 && item.getAmount() < 64)
+        .forEach(item -> item.setAmount(64));
+
+    player.getInventory().setArmorContents(itemStacks);
   }
 }
