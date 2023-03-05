@@ -15,6 +15,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public final class Main extends JavaPlugin implements Listener {
 
+  private int count;
+
   @Override
   public void onEnable() {
     Bukkit.getPluginManager().registerEvents(this, this);
@@ -31,23 +33,27 @@ public final class Main extends JavaPlugin implements Listener {
     Player player = e.getPlayer();
     World world = player.getWorld();
 
-    // 花火オブジェクトをプレイヤーのロケーション地点に対して出現させる。
-    Firework firework = world.spawn(player.getLocation(), Firework.class);
+    if(count % 2 == 0) {
+      // 花火オブジェクトをプレイヤーのロケーション地点に対して出現させる。
+      Firework firework = world.spawn(player.getLocation(), Firework.class);
 
-    // 花火オブジェクトが持つメタ情報を取得。
-    FireworkMeta fireworkMeta = firework.getFireworkMeta();
+      // 花火オブジェクトが持つメタ情報を取得。
+      FireworkMeta fireworkMeta = firework.getFireworkMeta();
 
-    // メタ情報に対して設定を追加したり、値の上書きを行う。
-    // 今回は青色で星型の花火を打ち上げる。
-    fireworkMeta.addEffect(
-        FireworkEffect.builder()
-            .withColor(Color.BLUE)
-            .with(Type.STAR)
-            .withFlicker()
-            .build());
-    fireworkMeta.setPower(1 * 4);
+      // メタ情報に対して設定を追加したり、値の上書きを行う。
+      // 今回は青色で星型の花火を打ち上げる。
+      fireworkMeta.addEffect(
+          FireworkEffect.builder()
+              .withColor(Color.RED)
+              .withColor(Color.BLUE)
+              .with(Type.BALL_LARGE)
+              .withFlicker()
+              .build());
+      fireworkMeta.setPower(1);
 
-    // 追加した情報で再設定する。
-    firework.setFireworkMeta(fireworkMeta);
+      // 追加した情報で再設定する。
+      firework.setFireworkMeta(fireworkMeta);
+    }
+    count++;
   }
 }
